@@ -135,6 +135,11 @@ int main(){
         printf("1: Them nut vao dau danh sach\n");
         printf("2: Them nut vao cuoi danh sach\n");
         printf("3: Them nut vao sau mot nut khac\n");
+        printf("4: Chen tang (Them sinh vien vao vi tri sap xep theo msv)\n");
+        printf("5: Xoa phan tu dau danh sach\n");
+        printf("6: Xoa phan tu phia sau mot msv\n");
+        printf("7: Xoa phan tu co msv(khoa k)\n");
+        printf("8: Tach danh sach (Theo diem mon 1 < 5.0)\n");
         printf("9: Duyet ds\n");
         printf("0: Thoat\n");
         printf("Moi ban chon: ");
@@ -174,6 +179,54 @@ int main(){
                     printf("Khong tim thay sinh vien co Ma SV: %d\n", maSV);
                 }
                 break;
+            
+			case 4:
+            	printf("\n--- Chen them SV (Sap xep theo msv tang dan) ---\n");
+            	nhap(&x);
+            	if(x.masv > 0) chen_tang(&L, x);
+            	break;
+            
+			case 5:
+            	del_Head(&L);
+            	printf("\nDa xoa sinh vien o dau danh sach.\n");
+            	break;
+            
+			case 6: {
+				int maSVSearch;
+				printf("\nNhap msv ma ban muon xoa sinh vien phia sau: ");
+				scanf("%d", &maSVSearch);
+				Node *q_del = searchNode(L, maSVSearch);
+				if(q_del != NULL){
+					if(q_del -> link == NULL){
+						printf("Day la sinh vien cuoi cung.\n");
+					}else{
+						del_After(&L, q_del);
+						printf("Da xoa thanh cong.\n");
+					}
+				}else{
+					printf("Khong tim thay msv nay.\n");
+				}
+				break;
+        	}
+        	case 7: {
+        		int maSVDel;
+        		printf("\nNhap msv can xoa: ");
+        		scanf("%d", &maSVDel);
+        		del_K(&L, maSVDel);
+        		printf("Da thuc thi lenh xoa.\n");
+				break;
+			}
+			case 8:{
+				LList L1, L2;
+				tach(L, &L1, &L2);
+				printf("\n--- Danh sach L1 (Diem mon 1 < 5.0) ---\n");
+				processList(L1);
+				printf("\n--- Danh sach L2 (Diem mon 1 >= 5.0) ---\n");
+				processList(L2);
+				while(L1.pHead != NULL) del_Head&L1;
+				while(L2.pHead != NULL) del_Head&L2;
+				break;
+			}
 
             case 9:
                 printf("--- DANH SACH SINH VIEN ---\n");
